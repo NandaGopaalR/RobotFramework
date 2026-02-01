@@ -1,0 +1,7 @@
+# This is the configuration directort where you can configure your URL and browser setting
+# Include if any file required to access in the project testing
+---
+CONFIGS:
+  url: https://www.bing.com/search?pglt=299&q=hi&cvid=3e8901b8958f4161bb51dbf25c30a833&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAuGEAyBggGEAAYQDIGCAcQLhhAMgYICBAAGEDSAQc0MjBqMGoxqAIAsAIA&FORM=ANSPA1&PC=LCTS
+  browser: chrome
+  
