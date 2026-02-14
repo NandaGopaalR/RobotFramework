@@ -1,0 +1,9 @@
+# This is the configuration directort where you can configure your URL and browser setting
+# Include if any file required to access in the project testing
+---
+CONFIGS:
+  url1: https://the-internet.herokuapp.com/
+  url2: https://sampleapp.tricentis.com/101/app.php
+  url3: https://www.testmuai.com/selenium-playground/
+  browser: chrome
+  
