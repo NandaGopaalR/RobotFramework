@@ -28,5 +28,5 @@ EndCycle
 *** Test Cases ***
 Test Case 1
     [Documentation]    This is a test case to verify the title of the page.
-    Title Should Be    Example Domain
+    Title Should Be    Example Test Page
     
