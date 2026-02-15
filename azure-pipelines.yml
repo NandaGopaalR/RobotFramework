@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: AgentPool-Laptop
+  name: VM-CI-Pool
 
 steps:
 - script: echo Hello, world!
