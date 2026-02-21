@@ -12,7 +12,7 @@ pool:
 steps:
 - script: |
     python --version || (
-      echo "Python not found, installing..."
+      echo "'python' is not recognized as an internal or external command"
       choco install python --version=3.11.9 -y
     )
   displayName: 'Check and Install Python if missing'
