@@ -5,12 +5,6 @@ pool:
   name: AgentPool-Laptop   # your self-hosted agent pool
 
 steps:
-# - script: |
-#     echo %PATH%
-#     python --version
-#     choco --version 
-#   displayName: 'Verify Python availability'
-
 # Step 1: Setup venv and install dependencies
 - script: |
     python -m venv venv
@@ -22,13 +16,14 @@ steps:
 # Step 2: Run Robocop linting on .robot files
 - script: |
     venv\Scripts\activate
-    robocop --include rules --reports all Test
-  workingDirectory: 'D:\Azure-PipelineAgent\_work\1\s'
+    robocop robocop check
+  workingDirectory: '$(Build.SourcesDirectory)'
   displayName: 'Run Robocop quality checks'
 
 # Step 3: Run Robot Framework tests (only if Robocop passes)
 - script: |
     venv\Scripts\activate
     robot Test
-  workingDirectory: 'D:\Azure-PipelineAgent\_work\1\s'
+  workingDirectory: '$(Build.SourcesDirectory)'
   displayName: 'Run Robot Framework tests'
+
