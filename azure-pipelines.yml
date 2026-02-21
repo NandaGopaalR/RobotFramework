@@ -11,7 +11,8 @@ pool:
 
 steps:
 - script: |
-  python --version || (
+    python --version || (
       echo "Python not found, installing..."
       choco install python --version=3.11.9 -y
     )
+  displayName: 'Check and Install Python if missing'
