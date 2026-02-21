@@ -11,7 +11,7 @@ steps:
     python -m pip install -r requirements.txt
   displayName: 'Setup venv and install dependencies'
 
-- script: robocop --reports all
+- script: robocop check
   workingDirectory: '$(Build.SourcesDirectory)\Test'
   displayName: 'Run Robocop quality checks in Test folder'
 
