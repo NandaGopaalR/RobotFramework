@@ -10,8 +10,7 @@ steps:
 #     python --version
 #     choco --version 
 #   displayName: 'Verify Python availability'
-  
-steps:
+
 - script: |
     python -m venv venv
     venv\Scripts\activate
