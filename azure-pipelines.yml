@@ -9,3 +9,6 @@ steps:
     echo %PATH%
     python --version
   displayName: 'Verify Python availability'
+  
+- script: pip install -r requirements.txt
+  displayName: 'Install dependencies'
