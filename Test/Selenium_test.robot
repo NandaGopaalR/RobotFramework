@@ -8,13 +8,14 @@ Resource    ${CURDIR}/../Resources/Base/Global_variable.resource
 Suite Setup    StartCycle
 Suite Teardown   EndCycle
 *** Variables ***
-${url}=    ${CONFIGS.url2}
+${url}=    ${CONFIGS.url3}
 ${browser}=    ${CONFIGS.browser}
 ${WebElement}=    //li[@class="menu-item"]/a[@id="nav_automobile"]
+${DriverPath}=    ${CURDIR}/../drivers/chromedriver.exe
 *** Keywords ***
 StartCycle
     [Documentation]
-    Open Browser    ${url}    ${browser}    executable_path=D:/Automation/RobotFramework_Project/Base/drivers/chromedriver.exe
+    Open Browser    ${url}    ${browser}    executable_path=${DriverPath}    #D:/Automation/RobotFramework_Project/Base/drivers/chromedriver.exe
     Maximize Browser Window
     Sleep    3s
 
@@ -23,8 +24,9 @@ EndCycle
     Close Browser
 
 *** Test Cases ***
-Test Case 1
+
+TestCase1
   [Documentation]    This is a test case to verify the title of the page.
-  ${var}    Set Variable    value
-  CustomClickButton   ${WebElement}
+  ${var}    Set Variable    //a[@class="text-black text-size-14 hover:text-lambda-900 leading-relaxed"][@href]
+  CustomClickLink   ${var}
   # create new branch and merge to main branch test
