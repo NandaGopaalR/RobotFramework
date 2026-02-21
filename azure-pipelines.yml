@@ -5,14 +5,16 @@ pool:
   name: AgentPool-Laptop   # your self-hosted agent pool
 
 steps:
+# - script: |
+#     echo %PATH%
+#     python --version
+#     choco --version 
+#   displayName: 'Verify Python availability'
+  
+steps:
 - script: |
-    echo %PATH%
-    python --version
-    choco --version 
-  displayName: 'Verify Python availability'
-  
-- script: python -m pip install --upgrade pip
-  displayName: 'Upgrade pip'
-  
-- script: python -m pip install -r requirements.txt
-  displayName: 'Install dependencies'
+    python -m venv venv
+    venv\Scripts\activate
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+  displayName: 'Setup venv and install dependencies'
