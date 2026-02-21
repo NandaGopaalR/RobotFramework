@@ -13,17 +13,10 @@ steps:
     python -m pip install -r requirements.txt
   displayName: 'Setup venv and install dependencies'
 
-# Step 2: Run Robocop linting on .robot files
-- script: |
-#    venv\Scripts\activate
-    robocop robocop check
- # workingDirectory: '$(Build.SourcesDirectory)'
-  displayName: 'Run Robocop quality checks'
+- script: robocop --reports all
+  workingDirectory: '$(Build.SourcesDirectory)\Test'
+  displayName: 'Run Robocop quality checks in Test folder'
 
-# Step 3: Run Robot Framework tests (only if Robocop passes)
-- script: |
-#    venv\Scripts\activate
-    robot Test
-#  workingDirectory: '$(Build.SourcesDirectory)'
-  displayName: 'Run Robot Framework tests'
-
+- script: robot
+  workingDirectory: '$(Build.SourcesDirectory)\Test'
+  displayName: 'Run Robot Framework tests in Test folder'
