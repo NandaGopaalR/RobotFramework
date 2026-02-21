@@ -1,15 +1,11 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
 pool:
-  name: AgentPool-Laptop
+  name: AgentPool-Laptop   # your self-hosted agent pool
 
 steps:
+# Step 1: Check if Chocolatey is installed
 - script: |
     choco --version || (
       echo "Chocolatey is not installed on this agent."
@@ -17,9 +13,10 @@ steps:
     )
   displayName: 'Check Chocolatey installation'
 
+# Step 2: Check if Python is installed, install via Chocolatey if missing
 - script: |
     python --version || (
-      echo "'python' is not recognized as an internal or external command"
+      echo "Python not found, installing with Chocolatey..."
       choco install python --version=3.11.9 -y
     )
   displayName: 'Check and Install Python if missing'
