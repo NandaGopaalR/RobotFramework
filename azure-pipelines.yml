@@ -10,9 +10,6 @@ pool:
   name: AgentPool-Laptop
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
 - script: |
   python --version || (
       echo "Python not found, installing..."
