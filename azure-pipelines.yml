@@ -5,6 +5,7 @@ pool:
   name: AgentPool-Laptop   # your self-hosted agent pool
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.x'
+- script: |
+    echo %PATH%
+    python --version
+  displayName: 'Verify Python availability'
