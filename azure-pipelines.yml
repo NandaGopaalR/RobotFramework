@@ -11,6 +11,13 @@ pool:
 
 steps:
 - script: |
+    choco --version || (
+      echo "Chocolatey is not installed on this agent."
+      exit 1
+    )
+  displayName: 'Check Chocolatey installation'
+
+- script: |
     python --version || (
       echo "'python' is not recognized as an internal or external command"
       choco install python --version=3.11.9 -y
