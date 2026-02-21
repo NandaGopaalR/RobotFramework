@@ -7,23 +7,23 @@ pool:
 steps:
 # Step 1: Setup venv and install dependencies
 - script: |
-    python -m venv venv
-    venv\Scripts\activate
+  #  python -m venv venv
+  #  venv\Scripts\activate
     python -m pip install --upgrade pip
     python -m pip install -r requirements.txt
   displayName: 'Setup venv and install dependencies'
 
 # Step 2: Run Robocop linting on .robot files
 - script: |
-    venv\Scripts\activate
+#    venv\Scripts\activate
     robocop robocop check
-  workingDirectory: '$(Build.SourcesDirectory)'
+ # workingDirectory: '$(Build.SourcesDirectory)'
   displayName: 'Run Robocop quality checks'
 
 # Step 3: Run Robot Framework tests (only if Robocop passes)
 - script: |
-    venv\Scripts\activate
+#    venv\Scripts\activate
     robot Test
-  workingDirectory: '$(Build.SourcesDirectory)'
+#  workingDirectory: '$(Build.SourcesDirectory)'
   displayName: 'Run Robot Framework tests'
 
