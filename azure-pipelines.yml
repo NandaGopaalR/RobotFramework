@@ -13,6 +13,5 @@ steps:
 - script: |
   python --version || (
       echo "Python not found, installing..."
-      choco install python --version=3.10.11 -y
+      choco install python --version=3.11.9 -y
     )
-  displayName: 'Check and Install Python if missing'
