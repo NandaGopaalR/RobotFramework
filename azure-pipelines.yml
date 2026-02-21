@@ -8,6 +8,7 @@ steps:
 - script: |
     echo %PATH%
     python --version
+    choco --version 
   displayName: 'Verify Python availability'
   
 - script: python -m pip install --upgrade pip
