@@ -33,11 +33,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install robotframework-robocop
       
-      - name: Run Robocop with SARIF output (Static Analysis Results Interchange Format)
-        run: |
-          python -m robocop check --reports sarif --output .sarif.json
-      - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v3
+      # - name: Run Robocop with SARIF output (Static Analysis Results Interchange Format)
+      #   run: |
+      #     python -m robocop check --reports sarif --output .sarif.json
+      # - name: Upload SARIF results
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     sarif_file: .sarif.json
+      #     category: robocop
+
+      - name: Run robocop
+        run: python -m robocop check --reports sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: .sarif.json
           category: robocop
