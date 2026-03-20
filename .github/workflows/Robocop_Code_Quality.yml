@@ -50,7 +50,7 @@ jobs:
       #     sarif_file: .sarif.json
       #     category: robocop
       - name: Run robocop
-        run: python -m robocop check --reports sarif > robocop-results.sarif.json
+        run: python -m robocop check --reports sarif
         continue-on-error: true
 
       - name: Upload SARIF file
