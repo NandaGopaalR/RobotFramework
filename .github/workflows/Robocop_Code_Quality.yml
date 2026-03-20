@@ -1,0 +1,43 @@
+name: Robocop Code Quality Check
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Optional manual run
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # or windows-latest / ubuntu-latest
+    # continue even if Robocop returns issues and fails step
+    continue-on-error: true
+
+    permissions:
+      # required for issues to be recorded
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: Software-Experience-Transformation/zugspitze-automation-suites
+          token: ${{secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.9"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install robotframework-robocop
+      
+      - name: Run Robocop with SARIF output (Static Analysis Results Interchange Format)
+        run: |
+          python -m robocop check --reports sarif --output .sarif.json
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: .sarif.json
+          category: robocop
