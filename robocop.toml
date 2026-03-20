@@ -1,0 +1,28 @@
+# URL:https://robocop.dev/stable/rules_list/#variables
+[tool.robocop.lint]
+#custom rules
+custom_rules = [
+    "config/custom_rules.py"
+]
+
+configure = [
+    "ARG01.severity=W",               #ARG01 : unused-argument
+    "ARG06.severity=I",   #ARG06: duplicated-argument-name
+    "ARG07.severity=I", #ARG07: arguments-per-line
+    "ARG07.max_args=1"  #ARG07: arguments-per-line
+    
+]
+
+# Select only the rules you want
+select = [
+    "ARG01",               #ARG01 : unused-argument
+    "ARG06",    #ARG06: duplicated-argument-name
+    "ARG07",    #ARG07: arguments-per-line
+    "VAR02",   # unused-variable
+    "VAR10",    # inconsistent-variable-name
+    "VAR01",     # Empty Variable
+    "LOC01"
+]
+
+persistent = true
+compare = true
