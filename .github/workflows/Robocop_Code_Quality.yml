@@ -42,19 +42,23 @@ jobs:
       #     sarif_file: .sarif.json
       #     category: robocop
 
-      # - name: Run robocop
-      #   run: python -m robocop check --reports sarif
-      # - name: Upload SARIF file
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: .sarif.json
-      #     category: robocop
       - name: Run robocop
         run: python -m robocop check --reports sarif
         continue-on-error: true
-
+        
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: robocop-results.sarif.json
+          sarif_file: .sarif.json
           category: robocop
+
+
+      # - name: Run robocop
+      #   run: python -m robocop check --reports sarif
+      #   continue-on-error: true
+
+      # - name: Upload SARIF file
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     sarif_file: robocop-results.sarif.json
+      #     category: robocop
