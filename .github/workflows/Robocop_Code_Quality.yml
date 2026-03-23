@@ -12,9 +12,9 @@ jobs:
     # continue even if Robocop returns issues and fails step
     continue-on-error: true
 
-    permissions:
-      # required for issues to be recorded
-      security-events: write
+    # permissions:
+    #   # required for issues to be recorded
+    #   security-events: write
 
     steps:
       - name: Checkout repository
