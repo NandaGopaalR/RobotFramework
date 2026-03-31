@@ -15,6 +15,9 @@ jobs:
       # permissions:
       #   # required for issues to be recorded
       #   security-events: write
+    permissions:
+      pull-requests: write
+      issues: write
 
     steps:
       # Checkout code
