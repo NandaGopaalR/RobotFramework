@@ -53,7 +53,7 @@ jobs:
           args: >
             -Dsonar.projectKey=NandaGopaalR_RobotFramework
             -Dsonar.organization=nanda1992gopal26r
-            -Dsonar.externalIssuesReportPaths=robocop-sonar.json
+            -Dsonar.externalIssuesReportPaths=robocop_sonar_qube.json
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
