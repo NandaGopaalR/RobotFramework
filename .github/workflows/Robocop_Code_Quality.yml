@@ -66,5 +66,5 @@ jobs:
           message: |
             ### Robocop Code Quality Check
             Robocop has detected issues in this PR.  
-            Please review them in [SonarCloud Dashboard](https://sonarcloud.io/project/overview?id=nanda1992gopal26r_robot-tests).
+            [View SonarCloud Results](${{ steps.sonar_result.outputs.result_url }})
 
