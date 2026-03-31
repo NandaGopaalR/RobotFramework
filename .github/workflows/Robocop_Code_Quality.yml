@@ -1,0 +1,63 @@
+name: Robocop Code Quality Check
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Optional manual run
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # or windows-latest / ubuntu-latest
+      # continue even if Robocop returns issues and fails step
+      #continue-on-error: true
+
+      # permissions:
+      #   # required for issues to be recorded
+      #   security-events: write
+    # permissions:
+    #   pull-requests: write
+    #   issues: write
+
+    steps:
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      # Set up Python for Robocop
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.9"
+      # Install Robocop and dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install robotframework-robocop
+      
+      - name: Run robocop
+        run: python -m robocop check --reports sarif
+        continue-on-error: true
+        
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: .sarif.json
+          category: robocop
+
+      # Run Robocop with SonarQube report format
+      - name: Run Robocop
+        run: robocop check --reports sonarqube
+        continue-on-error: true
+
+       # SonarCloud Scan
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          args: >
+            -Dsonar.projectKey=NandaGopaalR_RobotFramework
+            -Dsonar.organization=nanda1992gopal26r
+            -Dsonar.externalIssuesReportPaths=robocop_sonar_qube.json
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
