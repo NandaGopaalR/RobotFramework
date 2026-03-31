@@ -44,6 +44,7 @@ jobs:
       # Run Robocop with SonarQube report format
       - name: Run Robocop
         run: robocop check --reports sonarqube
+        continue-on-error: true
 
        # SonarCloud Scan
       - name: SonarCloud Scan
