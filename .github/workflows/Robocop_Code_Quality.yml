@@ -43,7 +43,7 @@ jobs:
 
       # Run Robocop with SonarQube report format
       - name: Run Robocop
-        run: robocop -c robocop.toml --reports sonarqube > robocop-sonar.json
+        run: robocop check --reports sonarqube
 
        # SonarCloud Scan
       - name: SonarCloud Scan
