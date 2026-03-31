@@ -15,9 +15,9 @@ jobs:
       # permissions:
       #   # required for issues to be recorded
       #   security-events: write
-    permissions:
-      pull-requests: write
-      issues: write
+    # permissions:
+    #   pull-requests: write
+    #   issues: write
 
     steps:
       # Checkout code
@@ -34,15 +34,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install robotframework-robocop
       
-      # - name: Run robocop
-      #   run: python -m robocop check --reports sarif
-      #   continue-on-error: true
+      - name: Run robocop
+        run: python -m robocop check --reports sarif
+        continue-on-error: true
         
-      # - name: Upload SARIF file
-      #   uses: github/codeql-action/upload-sarif@v4
-      #   with:
-      #     sarif_file: .sarif.json
-      #     category: robocop
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: .sarif.json
+          category: robocop
 
       # Run Robocop with SonarQube report format
       - name: Run Robocop
@@ -59,22 +59,5 @@ jobs:
             -Dsonar.externalIssuesReportPaths=robocop_sonar_qube.json
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      # - name: Capture SonarCloud Result URL
-      #   id: sonar_result
-      #   run: |
-      #     url=$(grep -o 'https://sonarcloud.io/dashboard[^ ]*' $GITHUB_STEP_SUMMARY || true)
-      #     echo "result_url=$url" >> $GITHUB_OUTPUT
-
-      # # Add or update a single PR comment (sticky)
-      # - name: Add/Update Robocop Summary Comment
-      #   if: github.event_name == 'pull_request'
-      #   uses: marocchino/sticky-pull-request-comment@v2
-      #   with:
-      #     header: robocop-summary
-      #     message: |
-      #       ### Robocop Code Quality Check
-      #       Robocop has detected issues in this PR.  
-      #       [View SonarCloud Results](${{ steps.sonar_result.outputs.result_url }})
 
 
