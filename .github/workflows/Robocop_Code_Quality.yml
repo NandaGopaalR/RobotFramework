@@ -57,6 +57,12 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      - name: Capture SonarCloud Result URL
+        id: sonar_result
+        run: |
+          url=$(grep -o 'https://sonarcloud.io/dashboard[^ ]*' $GITHUB_STEP_SUMMARY || true)
+          echo "result_url=$url" >> $GITHUB_OUTPUT
+
       # Add or update a single PR comment (sticky)
       - name: Add/Update Robocop Summary Comment
         if: github.event_name == 'pull_request'
@@ -67,4 +73,5 @@ jobs:
             ### Robocop Code Quality Check
             Robocop has detected issues in this PR.  
             [View SonarCloud Results](${{ steps.sonar_result.outputs.result_url }})
+
 
