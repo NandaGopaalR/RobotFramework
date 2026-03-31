@@ -9,56 +9,61 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest  # or windows-latest / ubuntu-latest
-    # continue even if Robocop returns issues and fails step
-    #continue-on-error: true
+      # continue even if Robocop returns issues and fails step
+      #continue-on-error: true
 
-    # permissions:
-    #   # required for issues to be recorded
-    #   security-events: write
+      # permissions:
+      #   # required for issues to be recorded
+      #   security-events: write
 
     steps:
+      # Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
-        # with:
-        #   repository: Software-Experience-Transformation/zugspitze-automation-suites
-        #   token: ${{secrets.GITHUB_TOKEN }}
-
+      # Set up Python for Robocop
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11.9"
-
+      # Install Robocop and dependencies
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install robotframework-robocop
       
-      # - name: Run Robocop with SARIF output (Static Analysis Results Interchange Format)
-      #   run: |
-      #     python -m robocop check --reports sarif --output .sarif.json
-      # - name: Upload SARIF results
-      #   uses: github/codeql-action/upload-sarif@v3
+      # - name: Run robocop
+      #   run: python -m robocop check --reports sarif
+      #   continue-on-error: true
+        
+      # - name: Upload SARIF file
+      #   uses: github/codeql-action/upload-sarif@v4
       #   with:
       #     sarif_file: .sarif.json
       #     category: robocop
 
-      - name: Run robocop
-        run: python -m robocop check --reports sarif
-        continue-on-error: true
-        
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v4
+      # Run Robocop with SonarQube report format
+      - name: Run Robocop
+        run: robocop -c robocop.toml --reports sonarqube > robocop-sonar.json
+
+       # SonarCloud Scan
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
         with:
-          sarif_file: .sarif.json
-          category: robocop
+          args: >
+            -Dsonar.projectKey=nanda1992gopal26r_robot-tests
+            -Dsonar.organization=nanda1992gopal26r
+            -Dsonar.externalIssuesReportPaths=robocop-sonar.json
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      # Add or update a single PR comment (sticky)
+      - name: Add/Update Robocop Summary Comment
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: robocop-summary
+          message: |
+            ### Robocop Code Quality Check
+            Robocop has detected issues in this PR.  
+            Please review them in [SonarCloud Dashboard](https://sonarcloud.io/project/overview?id=nanda1992gopal26r_robot-tests).
 
-      # - name: Run robocop
-      #   run: python -m robocop check --reports sarif
-      #   continue-on-error: true
-
-      # - name: Upload SARIF file
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif_file: robocop-results.sarif.json
-      #     category: robocop
